@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -36,18 +37,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
+  let history = useHistory();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
-
+  
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
       const user = await Auth.signIn(email, password);
-      console.log(user);
+      console.log(user.attributes.email);
+      props.setLogInUserEmail(user.attributes.email);
       setErrorMessage('');
+      history.push('/');
 
     } catch (err) {
       setErrorMessage(err.message);

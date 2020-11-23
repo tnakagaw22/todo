@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 
+import PrivateRoute from './components/PrivateRoute'
 import Nav from './components/Nav';
 import ToDo from './pages/ToDo';
 import SignIn from './pages/SignIn';
@@ -12,21 +13,20 @@ import SignUp from './pages/SignUp';
 
 function App() {
 
+  const [logInUserEmail, setLogInUserEmail] = React.useState('');
 
   return (
     <div className="App">
       <Router>
-        <Nav />
+        <Nav logInUserEmail={logInUserEmail}/>
         <Switch>
           <Route path="/sign-in">
-            <SignIn />
+            <SignIn setLogInUserEmail={setLogInUserEmail} />
           </Route>
           <Route path="/sign-up">
             <SignUp />
           </Route>
-          <Route path="/">
-            <ToDo />
-          </Route>
+          <PrivateRoute exact path="/" component={ToDo}  isLoggedIn={logInUserEmail !== ''} />
         </Switch>
       </Router>
     </div>
