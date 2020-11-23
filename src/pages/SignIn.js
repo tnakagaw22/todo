@@ -13,9 +13,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import { Auth } from 'aws-amplify'
 
+import useLocalStorage from "../hooks/useLocalStorage"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const classes = useStyles();
   let history = useHistory();
+  const [userAccessToken, setUserAccessToken] = useLocalStorage('userAccessToken', null);
+ 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -48,8 +50,8 @@ export default function SignIn(props) {
     try {
       e.preventDefault();
       const user = await Auth.signIn(email, password);
-      console.log(user.attributes.email);
-      props.setLogInUserEmail(user.attributes.email);
+
+      setUserAccessToken(user.signInUserSession.accessToken.payload);
       setErrorMessage('');
       history.push('/');
 

@@ -1,12 +1,19 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
-const PrivateRoute = ({ component: Component, isLoggedIn: isLoggedIn, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        isLoggedIn === true
-        ? <Component {...props} />
-        : <Redirect to='/sign-in' />
-    )} />
-  )
+import useLocalStorage from "../hooks/useLocalStorage"
 
-  export default PrivateRoute;
+const PrivateRoute = ({ component: Component, ...rest }) => {
+
+    const [userAccessToken, setUserAccessToken] = useLocalStorage('userAccessToken', null);
+
+    return (
+        <Route {...rest} render={(props) => (
+            userAccessToken
+                ? <Component {...props} />
+                : <Redirect to='/sign-in' />
+        )} />
+    )
+}
+
+export default PrivateRoute;

@@ -13,20 +13,18 @@ import SignUp from './pages/SignUp';
 
 function App() {
 
-  const [logInUserEmail, setLogInUserEmail] = React.useState('');
-
   return (
     <div className="App">
       <Router>
-        <Nav logInUserEmail={logInUserEmail}/>
+        <Nav />
         <Switch>
           <Route path="/sign-in">
-            <SignIn setLogInUserEmail={setLogInUserEmail} />
+            <SignIn />
           </Route>
           <Route path="/sign-up">
             <SignUp />
           </Route>
-          <PrivateRoute exact path="/" component={ToDo}  isLoggedIn={logInUserEmail !== ''} />
+          <PrivateRoute exact path="/" component={ToDo} />
         </Switch>
       </Router>
     </div>
