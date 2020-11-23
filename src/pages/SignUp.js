@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Alert from '@material-ui/lab/Alert';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -39,6 +39,8 @@ export default function SignUp() {
     const classes = useStyles();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [errorMessage, setErrorMessage] = React.useState('');
+    const [isSignUpProcessed, setIsSignUpProcessed] = React.useState(false);
 
     const handleSignUp = async (e) => {
         try {
@@ -50,10 +52,14 @@ export default function SignUp() {
                     email: email
                 }
             });
+            setIsSignUpProcessed(true);
+            setErrorMessage('');
             console.log(signUpResponse);
 
         } catch (err) {
             console.log(err);
+            setErrorMessage(err.message);
+            setIsSignUpProcessed(false);
         }
         console.log('test');
     }
@@ -103,16 +109,34 @@ export default function SignUp() {
                         color="primary"
                         className={classes.submit}
                         onClick={handleSignUp}
-                        >
+                    >
                         Sign Up
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/sign-in" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
                     </Grid>
+                    {errorMessage &&
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Alert severity="error">{errorMessage}</Alert>
+                            </Grid>
+                        </Grid>
+                    }
+
+                    {isSignUpProcessed &&
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Alert severity="info">
+                                    A verification link has been sent to you email.<br />
+                                Please click on the link on the email to continue the signup process.
+                            </Alert>
+                            </Grid>
+                        </Grid>
+                    }
                 </form>
             </div>
         </Container>

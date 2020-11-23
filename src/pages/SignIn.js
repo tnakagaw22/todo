@@ -7,7 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,17 +40,20 @@ export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const handleSignIn = async (e) => {
     try {
-        e.preventDefault();
-        const user = await Auth.signIn(email, password);
-        console.log(user);
+      e.preventDefault();
+      const user = await Auth.signIn(email, password);
+      console.log(user);
+      setErrorMessage('');
 
     } catch (err) {
-        console.log(err);
+      setErrorMessage(err.message);
+      console.log(err);
     }
-}
+  }
 
 
   return (
@@ -75,7 +78,7 @@ export default function SignIn() {
             autoComplete="email"
             autoFocus
             onChange={e => setEmail(e.target.value)}
-            />
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -87,7 +90,7 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
             onChange={e => setPassword(e.target.value)}
-            />
+          />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -109,11 +112,16 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/sign-up" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
+
+          {errorMessage &&
+            <Alert severity="error">{errorMessage}</Alert>
+          }
+
         </form>
       </div>
     </Container>
