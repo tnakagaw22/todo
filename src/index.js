@@ -3,6 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Amplify from 'aws-amplify'
+
+import config from "./config";
+
+Amplify.configure({
+  Auth:{
+    mandatorySignId: true,
+    region: config.region,
+    userPoolId: config.user_pool_id,
+    userPoolWebClientId: config.app_client_id,
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>

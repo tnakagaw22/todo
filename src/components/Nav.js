@@ -9,7 +9,7 @@ const Nav = (props) => {
                 <Grid
                     justify="space-between"
                     container
-                    spacing={24}
+                    spacing={10}
                 >
                     <Grid item>
                         <Typography color="inherit">
@@ -21,6 +21,8 @@ const Nav = (props) => {
                     <Grid item>
                         <div>
                             <Link href="/sign-in" color="inherit">ログイン</Link>
+                            /
+                            <Link href="/sign-up" color="inherit">登録</Link>
                         </div>
                     </Grid>
                 </Grid>

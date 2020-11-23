@@ -8,6 +8,7 @@ import {
 import Nav from './components/Nav';
 import ToDo from './pages/ToDo';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 function App() {
 
@@ -17,11 +18,14 @@ function App() {
       <Router>
         <Nav />
         <Switch>
-          <Route path="/">
-            <ToDo />
-          </Route>
           <Route path="/sign-in">
             <SignIn />
+          </Route>
+          <Route path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route path="/">
+            <ToDo />
           </Route>
         </Switch>
       </Router>

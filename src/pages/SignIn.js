@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { Auth } from 'aws-amplify'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,10 +38,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-  }
+  const handleSignIn = async (e) => {
+    try {
+        e.preventDefault();
+        const user = await Auth.signIn(email, password);
+        console.log(user);
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -62,7 +74,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
-          />
+            onChange={e => setEmail(e.target.value)}
+            />
           <TextField
             variant="outlined"
             margin="normal"
@@ -73,7 +86,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
+            onChange={e => setPassword(e.target.value)}
+            />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
