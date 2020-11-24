@@ -10,6 +10,7 @@ import Nav from './components/Nav';
 import ToDo from './pages/ToDo';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import AuthCallback from "./pages/AuthCallback";
 
 function App() {
 
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path="/sign-up">
             <SignUp />
+          </Route>
+          <Route path="/auth/callback">
+            <AuthCallback />
           </Route>
           <PrivateRoute exact path="/" component={ToDo} />
         </Switch>

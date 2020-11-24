@@ -28,7 +28,8 @@ const Nav = (props) => {
                             {userAccessToken
                                 ?
                                 <>
-                                    <div>ようこそ {userAccessToken.username} さん!</div>
+                                    <div>ようこそ 
+                                        {userAccessToken.username && userAccessToken.username + 'さん'}!</div>
                                     <SignOut />
                                 </>
                                 : <>

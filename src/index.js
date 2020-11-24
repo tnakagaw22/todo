@@ -11,8 +11,8 @@ Amplify.configure({
   Auth:{
     mandatorySignId: true,
     region: config.region,
-    userPoolId: config.user_pool_id,
-    userPoolWebClientId: config.app_client_id,
+    userPoolId: config.cognito.user_pool_id,
+    userPoolWebClientId: config.cognito.app_client_id,
   }
 })
 
