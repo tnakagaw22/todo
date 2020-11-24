@@ -16,6 +16,7 @@ import Container from '@material-ui/core/Container';
 import { Auth } from 'aws-amplify'
 
 import useLocalStorage from "../hooks/useLocalStorage"
+import GoogleLoginButton from '../components/auth/GoogleLoginButton'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const classes = useStyles();
   const [userAccessToken, setUserAccessToken] = useLocalStorage('userAccessToken', null);
- 
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
-  
+
   const handleSignIn = async (e) => {
     try {
       e.preventDefault();
@@ -71,6 +72,7 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -96,10 +98,7 @@ export default function SignIn(props) {
             autoComplete="current-password"
             onChange={e => setPassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
@@ -128,6 +127,15 @@ export default function SignIn(props) {
           }
 
         </form>
+
+        <Grid item> or Sign in with</Grid>
+
+        <GoogleLoginButton
+          variant="outlined"
+          margin="normal"
+          fullWidth
+        />
+
       </div>
     </Container>
   );
