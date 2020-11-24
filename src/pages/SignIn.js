@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
   const classes = useStyles();
-  let history = useHistory();
   const [userAccessToken, setUserAccessToken] = useLocalStorage('userAccessToken', null);
  
   const [email, setEmail] = React.useState('');
@@ -53,7 +52,7 @@ export default function SignIn(props) {
 
       setUserAccessToken(user.signInUserSession.accessToken.payload);
       setErrorMessage('');
-      history.push('/');
+      window.location.href = "/";
 
     } catch (err) {
       setErrorMessage(err.message);

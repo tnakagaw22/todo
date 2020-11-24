@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Typography, Grid, Link } from '@material-ui/core';
 import TaskIcon from '@material-ui/icons/PlaylistAddCheck';
 
 import useLocalStorage from "../hooks/useLocalStorage"
+import SignOut from './SignOut';
 
 const Nav = (props) => {
     const [userAccessToken, setUserAccessToken] = useLocalStorage('userAccessToken', null);
@@ -16,7 +17,7 @@ const Nav = (props) => {
                     spacing={10}
                 >
                     <Grid item>
-                        <Typography color="inherit">
+                        <Typography variant="h4" color="inherit">
                             <Link href="/" color="inherit">TO-DOリスト</Link>
                         </Typography>
 
@@ -25,7 +26,11 @@ const Nav = (props) => {
                     <Grid item>
                         <div>
                             {userAccessToken
-                                ? <span>ようこそ {userAccessToken.username} さん!</span>
+                                ?
+                                <>
+                                    <div>ようこそ {userAccessToken.username} さん!</div>
+                                    <SignOut />
+                                </>
                                 : <>
                                     <Link href="/sign-in" color="inherit">ログイン</Link>
                                     /

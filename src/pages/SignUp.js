@@ -48,7 +48,7 @@ export default function SignUp() {
             const signUpResponse = await Auth.signUp({
                 username: email,
                 password: password,
-                attriute: {
+                attributes: {
                     email: email
                 }
             });
