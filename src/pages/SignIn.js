@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -128,7 +129,7 @@ export default function SignIn(props) {
 
         </form>
 
-        <Grid item> or Sign in with</Grid>
+        <Grid item > or </Grid>
 
         <GoogleLoginButton
           variant="outlined"

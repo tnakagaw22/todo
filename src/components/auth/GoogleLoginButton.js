@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
 import Link from '@material-ui/core/Button';
 import Icon from './GoogleIcon';
 import config from "../../config";
