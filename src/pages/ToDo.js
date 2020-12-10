@@ -1,9 +1,12 @@
 import React from "react";
+import { API, graphqlOperation } from 'aws-amplify';
 
 import ToDoForm from '../components/ToDoForm';
 import ToDoList from '../components/ToDoList';
 
-function ToDo() {
+import * as queries from "../graphql/queries";
+
+function ToDo(props) {
   const [todos, setTodos] = React.useState([]);
 
   const addTodo = (todoName) => {
@@ -23,6 +26,7 @@ function ToDo() {
   }
 
   React.useEffect(() => {
+
     const interval = setInterval(() => {
       setTodos(todos.filter((todo) => !todo.isCompleted));
       console.log('Cleaned completed tasks');
@@ -30,16 +34,27 @@ function ToDo() {
     return () => clearInterval(interval);
   }, [todos]);
 
+  React.useEffect(async () => {
+    const allTodos = await API.graphql(graphqlOperation(queries.listTodos));
+    const todos = allTodos.data.listTodos.items.map(todo => {
+      return {
+        todoName: todo.TaskName,
+        isCompleted: false
+      }
+    });
+    setTodos(todos);
+  }, []);
+
   return (
     <>
-        <ToDoForm
-          addTodo={addTodo}
-        />
-        <ToDoList
-          todos={todos}
-          removeTodo={removeTodo}
-          completeTodo={completeTodo}
-        />
+      <ToDoForm
+        addTodo={addTodo}
+      />
+      <ToDoList
+        todos={todos}
+        removeTodo={removeTodo}
+        completeTodo={completeTodo}
+      />
     </>
   );
 }
